@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        function fuckIE() {
+            document.body.style.padding = '20';
+            document.body.style.fontSize = '16px';
+            document.body.innerHTML = '您的浏览器大概是IE内核，请换个谷歌内核的浏览器再来吧！</br>咱是互联网公司，浏览器不要用那么low';
+        }
+    </script>
+</head>
+
+<body ng-app="myApp" ng-controller="index">
+<div class="container" style="width: 591px;" ng-show="isLogin">
+    <div class="row" style="margin-top: 30px;">
+        <h4>KFC点餐辅助记账系统3.0</h4>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <button style="float: left;" type="button" class="btn btn-sm btn-primary" ng-click="goOrders()">
+            订单列表
+        </button>
+        <button style="float: left; margin-left: 10px;" type="button" class="btn btn-sm btn-primary"
+                ng-click="goItems()">
+            管理预置菜单
+        </button>
+        <button style="float: left; margin-left: 10px;" type="button" class="btn btn-sm btn-primary"
+                ng-click="toggleEditUsers()">
+            管理用户
+        </button>
+        <button style="float: right;" type="button" class="btn btn-sm btn-danger" ng-click="exit()">
+            退出系统
+        </button>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="list-group">
+            <a href="javascript:void(0);" class="list-group-item" ng-repeat="user in users">
+                <div style="float: left;"> {{user.userName}}</div>
+                <button style="float: right; margin-left: 10px;" type="button" class="btn btn-xs btn-danger" ng-click="delUser(user._id)"
+                        ng-show="isEditUsers">
+                    删除
+                </button>
+                <button style="float: right; margin-right: 0px;" type="button" class="btn btn-xs btn-primary"
+                        ng-click="showMenu(user)">
+                    点单
+                </button>
+                <button style="float: right; margin-right: 10px;" type="button" class="btn btn-xs btn-default">
+                    {{user.totalPrice || 0}}&nbsp;元
+                </button>
+                <div style="clear: both;"></div>
+                <div class="list-group" style="margin-top: 0px; margin-bottom: 0px;" ng-show="true">
+                    <div class="label label-info" style="float:left; margin-right: 5px; margin-top: 5px;"
+                         ng-repeat="it in user.its" ng-click="delIt(user, $index)">{{it.name}} * {{it.num}}
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <form class="form-inline" style="margin-top: 10px; margin-bottom: 0px;" ng-show="user.isShowMenu">
+                    <button type="button" class="btn btn-default" ng-click="showItems(user)">
+                        <i class="fa fa-navicon  text-info" aria-hidden="true"></i></button>
+                    <div class="form-group">
+                        <label class="sr-only">餐品名称</label>
+                        <input type="text" class="form-control" placeholder="餐品名称" style="width: 308px;"
+                               ng-model="user.na">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">数量</label>
+                        <input type="number" class="form-control" placeholder="数量" style="width: 80px;" min="0"
+                               max="100" step="1" ng-model="user.nu">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">单价</label>
+                        <input type="number" class="form-control" placeholder="单价" style="width: 80px;" min="0"
+                               max="100" step="0.5" ng-model="user.pr">
+                    </div>
+                    <button type="button" class="btn btn-default" ng-click="addIt(user)">
+                        <i class="fa fa-plus  text-success" aria-hidden="true"></i>
+                    </button>
+                </form>
+                <div style="clear: both;"></div>
+                <ul class="list-group" style="margin-top: 10px; margin-bottom: 0px;" ng-show="user.isShowItems">
+                    <li class="list-group-item" ng-repeat="item in items">
+                        <span style="line-height: 36px;">{{item.itemName}}</span>
+                        <span>&nbsp;&nbsp;单</span>
+                        <span>{{item.itemPrice}}</span>元
+                        <button type="button" class="btn btn-default pull-right" ng-click="copyIt(item, user)">
+                            <i class="fa fa-paste  text-info" aria-hidden="true"></i>
+                        </button>
+                        <div class="sak-clear"></div>
+                    </li>
+                </ul>
+                <div style="clear: both;"></div>
+            </a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 0px;">
+        <label class="col-md-8" style="padding-left: 0px; line-height: 34px;">
+            当前总价&nbsp;<span>{{totalPrice}}</span>&nbsp;元，当前运费&nbsp;<span>{{freight}}</span>&nbsp;元，合计&nbsp;<span
+                class="text-danger">{{finalPrice}}</span>&nbsp;元
+        </label>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-default" ng-click="editFreight()">修改运费</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-success" ng-click="lockOrder()">生成订单</button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px;" ng-show="isEditUsers">
+        <div class="col-md-10" style="padding-left: 0px;">
+            <input type="text" class="form-control" style="width: 100%;" id="userName" placeholder="昵称"
+                   ng-model="userName">
+        </div>
+        <button type="button" class="btn btn-warning col-md-2" ng-click="addUser()">添加用户</button>
+    </div>
+</div>
+</body>
+<!--[if lte IE 9 ]>
+<script>fuckIE();</script>
+<![endif]-->
+</html>

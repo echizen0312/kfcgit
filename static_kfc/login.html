@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+        function fuckIE() {
+            document.body.style.padding = '20';
+            document.body.style.fontSize = '16px';
+            document.body.innerHTML = '您的浏览器大概是IE内核，请换个谷歌内核的浏览器再来吧！</br>咱是互联网公司，浏览器不要用那么low';
+        }
+    </script>
+</head>
+
+<body ng-app="myApp" ng-controller="login">
+<div class="container" style="width: 591px;">
+    <div class="row" style="margin-top: 30px;">
+        <h4>KFC点餐辅助记账系统3.0</h4>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-10" style="padding-left: 0px;">
+            <input type="password" class="form-control" style="width: 100%;" placeholder="口令"
+                   ng-model="password">
+        </div>
+        <button type="button" class="btn btn-danger col-md-2" ng-click="login()">进入系统</button>
+    </div>
+</div>
+</body>
+<!--[if lte IE 9 ]>
+<script>fuckIE();</script>
+<![endif]-->
+</html>

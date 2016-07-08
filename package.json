@@ -1,0 +1,19 @@
+{
+  "name": "kfc",
+  "version": "1.0.0",
+  "description": "kfc",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "sakuya",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "moment": "^2.14.1",
+    "mongoose": "^4.5.3"
+  }
+}

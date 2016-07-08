@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+    <script src="js/items.js"></script>
+    <script>
+        function fuckIE() {
+            document.body.style.padding = '20';
+            document.body.style.fontSize = '16px';
+            document.body.innerHTML = '您的浏览器大概是IE内核，请换个谷歌内核的浏览器再来吧！</br>咱是互联网公司，浏览器不要用那么low';
+        }
+    </script>
+</head>
+
+<body ng-app="myApp" ng-controller="items">
+<div class="container" style="width: 591px;" ng-show="isLogin">
+    <div class="row" style="margin-top: 30px;">
+        <h4>KFC点餐辅助记账系统3.0</h4>
+    </div>
+    <div class="row" style="margin-top: 10px;">
+        <button style="float: left;" type="button" class="btn btn-sm btn-primary" ng-click="goIndex()">
+            返回首页
+        </button>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <ul class="list-group" style="margin-top: 0px; margin-bottom: 0px;">
+            <li class="list-group-item" ng-repeat="item in items">
+                <span style="line-height: 36px;">{{item.itemName}}</span>
+                <span>&nbsp;&nbsp;单</span>
+                <span>{{item.itemPrice}}</span>元
+                <button type="button" class="btn btn-default pull-right" ng-click="delItem(item._id)">
+                    <i class="fa fa-close text-danger" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 10px;">
+                    {{item.sortNum}}
+                </button>
+                <div class="sak-clear"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-md-6" style="padding-left: 0px;">
+            <input type="text" class="form-control" style="width: 100%;" placeholder="菜名"
+                   ng-model="itemName">
+        </div>
+        <div class="col-md-2" style="padding-left: 0px;">
+            <input type="number" class="form-control" style="width: 100%;" min="0"
+                   max="100" step="0.5" placeholder="单价"
+                   ng-model="itemPrice">
+        </div>
+        <div class="col-md-2" style="padding-left: 0px;">
+            <input type="number" class="form-control" style="width: 100%;" min="0"
+                   max="100" step="1" placeholder="排序值"
+                   ng-model="sortNum">
+        </div>
+        <button type="button" class="btn btn-warning col-md-2" ng-click="addItem()">添加菜色</button>
+    </div>
+</div>
+</body>
+<!--[if lte IE 9 ]>
+<script>fuckIE();</script>
+<![endif]-->
+</html>

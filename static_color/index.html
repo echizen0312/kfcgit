@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="feifeiApp">
+<head>
+    <meta charset="UTF-8">
+    <title>feifei</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+    <script>
+        function convertToFF(cv16) {
+            var R = cv16.substring(0, 2);
+            var G = cv16.substring(2, 4);
+            var B = cv16.substring(4, 6);
+            var R10 = parseInt(R, 16);
+            var R1 = R10 / 255;
+            R1 = R1.toFixed(2);
+            var G10 = parseInt(G, 16);
+            var G1 = G10 / 255;
+            G1 = G1.toFixed(2);
+            var B10 = parseInt(B, 16);
+            var B1 = B10 / 255;
+            B1 = B1.toFixed(2);
+            var result = 'UIColor(red:' + R1 + ', green:' + G1 + ', blue:' + B1 + ', alpha:1.00)';
+            return result;
+        }
+        var app = angular.module('feifeiApp', []);
+        app.controller('feifeiCtrl', ['$scope', function ($scope) {
+            $scope.getColorCSS = function () {
+                var c = $scope.color;
+                if (c.indexOf('#') == -1) {
+                    c = '#' + c;
+                }
+                $scope.colorCSS = c;
+            };
+            $scope.getColorFF = function () {
+                var c = $scope.color;
+                var test1 = /^#[0-9a-fA-F]{6}$/;
+                var test2 = /^[0-9a-fA-F]{6}$/;
+                if (test1.test(c)) {
+                    $scope.show = false;
+                    c = c.replace('#', '');
+                    $scope.colorFF = convertToFF(c);
+                    $scope.getColorCSS();
+                } else if (test2.test(c)) {
+                    $scope.show = false;
+                    $scope.colorFF = convertToFF(c);
+                    $scope.getColorCSS();
+                } else {
+                    $scope.show = true;
+                }
+            }
+            $scope.color = '#0F4C3A';
+            $scope.show = false;
+            $scope.getColorFF();
+        }]);
+    </script>
+</head>
+<body ng-controller="feifeiCtrl">
+<div class="container">
+    <div class="row" style="margin-top: 30px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h3>瓜瓜的颜色转换2.0</h3>
+                    <h6 class="pull-right;">by sakuya 2016-07-04</h6>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">颜色</label>
+                        <div class="col-md-11">
+                            <input type="text" class="form-control" ng-model="color" ng-change="getColorFF()"
+                                   placeholder="在这里填入RGB色值，#号可要可不要">
+                        </div>
+                    </div>
+                    <div id="msg" class="col-md-offset-1 col-md-11 alert alert-danger" role="alert"
+                         style="font-size: 14px;" ng-show="show">
+                        输入的格式不对，请输入6位RGB，例如#111111或者111111皆可
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">结果</label>
+                        <div class="col-md-11">
+                            <input type="text" class="form-control" value="{{colorFF}}"
+                                   placeholder="这里显示结果">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label">展示</label>
+                        <div class="col-md-11">
+                            <botton class="btn btn-sm btn-default form-control"
+                                    style="background-color: {{colorCSS}};"></botton>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <h3 style="margin-top: 25px;">一些好的</h3>
+        <div class="row" style="padding: 0px 15px 0px 15px;">
+            <div class="col-xs-6" style="padding: 0px 8px 0px 0px; margin-top: 10px;">
+                <div style="color: white; background-color: #0F4C3A;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>藍海松茶</div>
+                    <div>AIMIRUCHA</div>
+                    <div>#0F4C3A</div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0px 0px 0px 8px; margin-top: 10px;">
+                <div style="color: white; background-color: #CB4042;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>赤紅</div>
+                    <div>AKABENI</div>
+                    <div>#CB4042</div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0px 8px 0px 0px; margin-top: 15px;">
+                <div style="color: white; background-color: #1B813E;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>常磐</div>
+                    <div>TOKIWA</div>
+                    <div>#1B813E</div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0px 0px 0px 8px; margin-top: 15px;">
+                <div style="color: white; background-color: #FFB11B;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>山吹</div>
+                    <div>YAMABUKI</div>
+                    <div>#FFB11B</div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0px 8px 0px 0px; margin-top: 15px;">
+                <div style="color: white; background-color: #255359;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>鉄御納戸</div>
+                    <div>TETSUONANDO</div>
+                    <div>#255359</div>
+                </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0px 0px 0px 8px; margin-top: 15px;">
+                <div style="color: white; background-color: #6F3381;padding: 8px 8px 8px 15px; border-radius: 5px;">
+                    <div>菖蒲</div>
+                    <div>AYAME</div>
+                    <div>#6F3381</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
