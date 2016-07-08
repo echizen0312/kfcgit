@@ -37,7 +37,7 @@ app.use(session({
 }));
 app.use('/KFC', express.static(path.join(__dirname, 'static_kfc')));
 app.use('/COLOR', express.static(path.join(__dirname, 'static_color')));
-app.get('/', function (req, res) {
+app.all('/', function (req, res) {
     res.redirect('/KFC');
 });
 app.use('/getUsers', getUsers);
