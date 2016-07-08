@@ -19,7 +19,8 @@ var exit = require('./api/exit');
 var app = express();
 var port = 3000;
 
-mongoose.connect('mongodb://10.255.31.110/kfc');
+//mongoose.connect('mongodb://10.255.31.110/kfc');
+mongoose.connect('mongodb://127.0.0.1/kfc');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
