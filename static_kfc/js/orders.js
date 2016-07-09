@@ -66,9 +66,6 @@ app.controller('orders', function ($scope, $http) {
         }
         $scope.finalPrice = $scope.totalPrice + $scope.freight;
     };
-    $scope.getMoment = function (order) {
-        return moment(order.createTime).format('YYYY-MM-DD HH:mm:ss');
-    };
     $scope.getIsPay = function (user) {
         if (typeof(user.isPay) == 'undefined') {
             return true;
