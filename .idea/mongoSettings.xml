@@ -19,6 +19,14 @@
             </list>
           </option>
         </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="127.0.0.1" />
+          <option name="serverUrls">
+            <list>
+              <option value="127.0.0.1:27017" />
+            </list>
+          </option>
+        </ServerConfiguration>
       </list>
     </option>
   </component>

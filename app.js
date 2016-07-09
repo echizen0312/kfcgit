@@ -20,6 +20,7 @@ var app = express();
 var port = 3000;
 
 mongoose.connect('mongodb://10.255.31.110/kfc');
+// mongoose.connect('mongodb://127.0.0.1/kfc');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -37,7 +38,8 @@ app.use(session({
 }));
 app.use('/KFC', express.static(path.join(__dirname, 'static_kfc')));
 app.use('/COLOR', express.static(path.join(__dirname, 'static_color')));
-app.get('/', function (req, res) {
+app.all('/', function (req, res) {
+    // var hostName = req.host;
     res.redirect('/KFC');
 });
 app.use('/getUsers', getUsers);
