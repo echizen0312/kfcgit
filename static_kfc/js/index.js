@@ -1,19 +1,28 @@
 var app = angular.module('myApp', []);
 app.controller('index', function ($scope, $http) {
     $scope.addUser = function () {
-        $http.post("../addUser", {userName: $scope.userName})
-            .success(function (response) {
-                if (response.success) {
-                    $scope.getUserList();
-                    $scope.userName = '';
+        var fd = new FormData();
+        var file = document.querySelector('input[type=file]').files[0];
+        fd.append('userName', $scope.userName);
+        fd.append('userFace', file);
+        $http({
+            method: 'post',
+            url: '../addUser',
+            data: fd,
+            headers: {'Content-Type': undefined},
+            transformRequest: angular.identity
+        }).success(function (response) {
+            if (response.success) {
+                $scope.getUserList();
+                $scope.userName = '';
+            } else {
+                if (response.msg == 'null') {
+                    alert('毛线，参数为空');
                 } else {
-                    if (response.msg == 'null') {
-                        alert('毛线，参数为空');
-                    } else {
-                        alert(response.msg);
-                    }
+                    alert(response.msg);
                 }
-            });
+            }
+        });
     };
     $scope.delUser = function (id) {
         $http.post("../delUser", {id: id})

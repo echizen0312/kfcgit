@@ -38,6 +38,7 @@ app.use(session({
 }));
 app.use('/KFC', express.static(path.join(__dirname, 'static_kfc')));
 app.use('/COLOR', express.static(path.join(__dirname, 'static_color')));
+app.use('/FACE', express.static(path.join(__dirname, 'public/files')));
 app.all('/', function (req, res) {
     // var hostName = req.host;
     res.redirect('/KFC');
