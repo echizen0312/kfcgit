@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
     <script src="js/index.js"></script>
     <script>
@@ -41,7 +42,7 @@
     <div class="row" style="margin-top: 15px;">
         <div class="list-group">
             <a href="javascript:void(0);" class="list-group-item" ng-repeat="user in users">
-                <div style="float: left;"><img style="width: 40px; height: 40px; border-radius: 5px;" ng-src="../FACE/{{user.userFace}}"/></div>
+                <div style="float: left;"><img style="width: 40px; height: 40px; border-radius: 5px;" ng-src="{{user.userFace | faceFilter}}"/></div>
                 <div style="float: left; margin-left: 10px;">{{user.userName}}</div>
                 <button style="float: right; margin-left: 10px;" type="button" class="btn btn-xs btn-danger" ng-click="delUser(user._id)"
                         ng-show="isEditUsers">
@@ -117,7 +118,7 @@
                    ng-model="userName">
         </div>
         <div class="col-md-6" style="padding-left: 0px;">
-            <input type="file" class="form-control" style="width: 100%;" id="userName" placeholder="头像"
+            <input type="file" class="form-control" style="width: 100%;" id="faceFile" placeholder="头像"
                    file-model="userFace">
         </div>
         <button type="button" class="btn btn-warning col-md-2" ng-click="addUser()">添加用户</button>

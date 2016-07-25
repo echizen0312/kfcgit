@@ -10,5 +10,6 @@
     <orderEntry type="library" name="express-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="kfc node_modules" level="project" />
     <orderEntry type="library" name="multiparty-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jquery-DefinitelyTyped" level="application" />
   </component>
 </module>

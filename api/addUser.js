@@ -36,7 +36,7 @@ router.post('/', function (req, res) {
                             }
                         });
                     }else{
-                        var u = new user({userName: userName, userFace: ''});
+                        var u = new user({userName: userName, userFace: 'empty'});
                         u.save(function (err) {
                             if (err) {
                                 res.json({success: false, msg: 'error'});
